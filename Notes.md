@@ -14,3 +14,12 @@ Features
 -> Package.json file is the heart of any NodeJs project, it contains metadata about the project such as its name, author and dependencies,
 -> tsconfig.json file is a configuration file that configures TS compiler, defining how TS code in compiled to Js. It includes settings for target Js version, Module system and other compiler options.
 -> nest-cli.json file is specific to NestJs projects and contains configuration options for the Nest CLI, such as default application path and generator options.
+
+-> NestFactory: used to create an application instance, and specifying the entry module.
+
+-> @Module is a decorator that marks a class as a Module.
+Modules are used by Nest to organize the application structure into scopes.
+Controllers and Providers are scoped by the module they are declared in. 
+
+
+--> When we start our NestJs app first of all it executes the main.ts file and there we bootsrapps our AppModule
