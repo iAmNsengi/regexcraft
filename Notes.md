@@ -43,3 +43,9 @@ Controllers and Providers are scoped by the module they are declared in.
 
 *AppModule* is the main module of a NestJs app and it is used to connect ot other modules of our NestJs application.
 (It is the root module)
+
+
+-> Controllers: Handles incoming Http requests and routes them to appropriate handler
+-> Service: contains business logic or the module. Handles data access, calculation and other core funtions.
+-> Entity: Defines the structure of database entities, Used when interacting with database like TypeORM
+-> Test File: Contains the unit test for the controller to ensure its functionality.
