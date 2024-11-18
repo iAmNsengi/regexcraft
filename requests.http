@@ -1,9 +1,17 @@
 ### Get all songs endpoint
-http://localhost:3000/songs
+GET http://localhost:3000/songs
 
 
-### Get one song endpoint
-http://localhost:3000/songs/1
+### Create a new song endpoint
+POST http://localhost:3000/songs
+Content-Type: application/json
+
+{
+    "title":"Tuzavomayo Ibyiza",
+    "artists":["HWT"],
+    "releaseDate":"2024-01-01",
+    "duration":"02:23"
+}
 
 
 
