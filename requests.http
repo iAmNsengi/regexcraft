@@ -1,0 +1,9 @@
+### Get all songs endpoint
+http://localhost:3000/songs
+
+
+### Get one song endpoint
+http://localhost:3000/songs/1
+
+
+
