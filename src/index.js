@@ -124,8 +124,11 @@ class RegexCraft {
   }
 
   build() {
-    const pattern = this.patterns.length > 0 ? this.patterns.join("") : ".*";
-    return new RegExp(pattern, this.flags);
+    if (this.patterns.length === 0) return new RegExp(".*", this.flags);
+
+    // Combine patterns with positive lookaheads for AND logic
+    const pattern = this.patterns.map((p) => `(?=${p})`).join("") + ".+";
+    return new RegExp(`^${pattern}$`, this.flags);
   }
 }
 
