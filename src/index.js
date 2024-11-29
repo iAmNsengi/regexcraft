@@ -117,7 +117,8 @@ class RegexCraft {
     return examples.map((example) => ({
       value: example,
       isValid: regex.test(example),
-    }));
+      failedRequirements: this.getFailedRequirements(example),
+    }))[0];
   }
 
   visualize() {
@@ -136,6 +137,15 @@ class RegexCraft {
     this.patterns.push(pattern);
     this.description.push(message);
     return this;
+  }
+  getFailedRequirements(value) {
+    return this.patterns
+      .map((pattern, index) => ({
+        requirement: this.description[index],
+        passed: new RegExp(pattern).test(value),
+      }))
+      .filter((result) => !result.passed)
+      .map((result) => result.requirement);
   }
 
   build() {
