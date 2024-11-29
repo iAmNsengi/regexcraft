@@ -123,6 +123,17 @@ class RegexCraft {
     }));
   }
 
+  visualize() {
+    return {
+      pattern: this.build().toString(),
+      requirements: this.description,
+      explanations: this.description.map(({ desc, index }) => ({
+        requirement: desc,
+        pattern: this.patterns[index],
+      })),
+    };
+  }
+
   build() {
     if (this.patterns.length === 0) return new RegExp(".*", this.flags);
 
