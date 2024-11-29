@@ -55,6 +55,21 @@ class RegexCraft {
           },
         ],
       },
+      username: {
+        standard: [
+          {
+            pattern: "^[a-zA-Z][a-zA-Z0-9_]{2,29}",
+            message:
+              "Letters, numbers and underscore only, at least 2 characters",
+          },
+        ],
+        strict: [
+          {
+            pattern: "^[a-zA-Z][a-zA-Z0-9]{5,29}",
+            message: "Letters and numbers only, at least 5 characters",
+          },
+        ],
+      },
     };
   }
 }
