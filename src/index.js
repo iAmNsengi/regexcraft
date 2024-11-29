@@ -76,7 +76,7 @@ class RegexCraft {
   // Length validators
 
   hasMinLength(length, message = `Minimum length of ${length} characters`) {
-    this.addPattern(`(?=.{${length},})`, message);
+    this.addPattern(`^.{${length},}$`, message);
     return this;
   }
 
@@ -90,7 +90,7 @@ class RegexCraft {
     max,
     message = `Length should be between ${min} and ${max} characters`
   ) {
-    this.addPattern(`(?=.{${min},${max}}$)`, message);
+    this.addPattern(`^.{${min},${max}}$`, message);
     return this;
   }
 
