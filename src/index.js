@@ -94,3 +94,20 @@ class RegexCraft {
     return this;
   }
 }
+
+
+// presets
+usePreset(type, (level = "medium")){
+    const preset = this.presets[type]?.[level];
+    if (!preset) {
+        throw new Error(`Preset not found: ${type}:${level}`)
+    }
+
+    preset.forEach(({ pattern, message }) => {
+        this.addPattern(pattern,message)
+    })
+
+    return this
+};
+
+export default RegexCraft;
