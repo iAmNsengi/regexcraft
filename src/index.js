@@ -76,7 +76,7 @@ class RegexCraft {
   // Length validators
 
   hasMinLength(length, message = `Minimum length of ${length} characters`) {
-    this.addPattern(`(?=.{${length},})`, message);
+    this.addPattern(`^.{${length},}$`, message);
     return this;
   }
 
@@ -90,7 +90,7 @@ class RegexCraft {
     max,
     message = `Length should be between ${min} and ${max} characters`
   ) {
-    this.addPattern(`(?=.{${min},${max}}$)`, message);
+    this.addPattern(`^.{${min},${max}}$`, message);
     return this;
   }
 
@@ -108,12 +108,9 @@ class RegexCraft {
     return this;
   }
 
-  // utility methods
-  addPattern(pattern, message) {
-    this.patterns.push(pattern);
-    this.description.push(message);
-    return this;
-  }
+  /**
+   *  Visualisation and testing ------------------------------
+   */
 
   test(examples) {
     const regex = this.build();
@@ -123,9 +120,30 @@ class RegexCraft {
     }));
   }
 
+  visualize() {
+    return {
+      pattern: this.build().toString(),
+      requirements: this.description,
+    };
+  }
+
+  /**
+   * --------------------------------------------------------------
+   */
+
+  // utility methods
+  addPattern(pattern, message) {
+    this.patterns.push(pattern);
+    this.description.push(message);
+    return this;
+  }
+
   build() {
-    const pattern = this.patterns.length > 0 ? this.patterns.join("") : ".*";
-    return new RegExp(pattern, this.flags);
+    if (this.patterns.length === 0) return new RegExp(".*", this.flags);
+
+    // Combine patterns with positive lookaheads for AND logic
+    const pattern = this.patterns.map((p) => `(?=${p})`).join("") + ".+";
+    return new RegExp(`^${pattern}$`, this.flags);
   }
 }
 
