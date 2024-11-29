@@ -108,12 +108,9 @@ class RegexCraft {
     return this;
   }
 
-  // utility methods
-  addPattern(pattern, message) {
-    this.patterns.push(pattern);
-    this.description.push(message);
-    return this;
-  }
+  /**
+   *  Visualisation and testing ------------------------------
+   */
 
   test(examples) {
     const regex = this.build();
@@ -128,6 +125,17 @@ class RegexCraft {
       pattern: this.build().toString(),
       requirements: this.description,
     };
+  }
+
+  /**
+   * --------------------------------------------------------------
+   */
+
+  // utility methods
+  addPattern(pattern, message) {
+    this.patterns.push(pattern);
+    this.description.push(message);
+    return this;
   }
 
   build() {
