@@ -81,7 +81,7 @@ class RegexCraft {
   }
 
   hasMaxLength(length, message = `Maximum length of ${length} characters`) {
-    this.addPattern(`(?=.{0,${length}}$)`, message);
+    this.addPattern(`^.{0,${length}}$`, message);
     return this;
   }
 
@@ -93,21 +93,40 @@ class RegexCraft {
     this.addPattern(`(?=.{${min},${max}}$)`, message);
     return this;
   }
-}
 
-
-// presets
-usePreset(type, (level = "medium")){
+  // presets
+  usePreset(type, level = "medium") {
     const preset = this.presets[type]?.[level];
     if (!preset) {
-        throw new Error(`Preset not found: ${type}:${level}`)
+      throw new Error(`Preset not found: ${type}:${level}`);
     }
 
     preset.forEach(({ pattern, message }) => {
-        this.addPattern(pattern,message)
-    })
+      this.addPattern(pattern, message);
+    });
 
-    return this
-};
+    return this;
+  }
+
+  // utility methods
+  addPattern(pattern, message) {
+    this.patterns.push(pattern);
+    this.description.push(message);
+    return this;
+  }
+
+  test(examples) {
+    const regex = this.build();
+    return examples.map((example) => ({
+      value: example,
+      isValid: regex.test(example),
+    }));
+  }
+
+  build() {
+    const pattern = this.patterns.length > 0 ? this.patterns.join("") : ".*";
+    return new RegExp(pattern, this.flags);
+  }
+}
 
 export default RegexCraft;
