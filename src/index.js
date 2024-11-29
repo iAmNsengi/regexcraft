@@ -72,4 +72,25 @@ class RegexCraft {
       },
     };
   }
+
+  // Length validators
+
+  hasMinLength(length, message = `Minimum length of ${length} characters`) {
+    this.addPattern(`(?=.{${length},})`, message);
+    return this;
+  }
+
+  hasMaxLength(length, message = `Maximum length of ${length} characters`) {
+    this.addPattern(`(?=.{0,${length}}$)`, message);
+    return this;
+  }
+
+  hasLengthBetween(
+    min,
+    max,
+    message = `Length should be between ${min} and ${max} characters`
+  ) {
+    this.addPattern(`(?=.{${min},${max}}$)`, message);
+    return this;
+  }
 }
