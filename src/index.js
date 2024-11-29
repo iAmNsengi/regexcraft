@@ -127,10 +127,6 @@ class RegexCraft {
     return {
       pattern: this.build().toString(),
       requirements: this.description,
-      explanations: this.description.map(({ desc, index }) => ({
-        requirement: desc,
-        pattern: this.patterns[index],
-      })),
     };
   }
 
