@@ -4,6 +4,10 @@
  */
 
 class RegexCraft {
+  /**
+   * Creates a new RegexCraft instance
+   * @constructor
+   */
   constructor() {
     this.patterns = [];
     this.flags = "";
@@ -74,19 +78,34 @@ class RegexCraft {
   }
 
   /**
-   * ---------------------------------Length validators ----------------------------------------
+   * Validates minimum length of the input
+   * @param {number} length - Minimum number of characters required
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
    */
-
   hasMinLength(length, message = `Minimum length of ${length} characters`) {
     this.addPattern(`^.{${length},}$`, message);
     return this;
   }
 
+  /**
+   * Validates maximum length of the input
+   * @param {number} length - Maximum number of characters allowed
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasMaxLength(length, message = `Maximum length of ${length} characters`) {
     this.addPattern(`^.{0,${length}}$`, message);
     return this;
   }
 
+  /**
+   * Validates that input length falls within specified range
+   * @param {number} min - Minimum number of characters required
+   * @param {number} max - Maximum number of characters allowed
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasLengthBetween(
     min,
     max,
@@ -95,6 +114,12 @@ class RegexCraft {
     this.addPattern(`^.{${min},${max}}$`, message);
     return this;
   }
+  /**
+   * Validates that input has exact length
+   * @param {number} length - Required exact length
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasExactLength(
     length,
     message = `Length should be exactly ${length} characters`
@@ -104,9 +129,11 @@ class RegexCraft {
   }
 
   /**
-   * Character validations
+   * Requires specified number of letters (a-z, A-Z)
+   * @param {number} [count=1] - Minimum number of letters required
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
    */
-
   hasLetter(
     count = 1,
     message = `At least ${count} letter${count > 1 ? "s" : ""}`
@@ -115,6 +142,12 @@ class RegexCraft {
     return this;
   }
 
+  /**
+   * Requires specified number of lowercase letters
+   * @param {number} [count=1] - Minimum number of lowercase letters required
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasLowerCase(
     count = 1,
     message = `At least ${count} lowercase letter${count > 1 ? "s" : ""}`
@@ -135,6 +168,12 @@ class RegexCraft {
     this.addPattern(`(?=(?:.*[A-Z]){${count}})`, message);
     return this;
   }
+  /**
+   * Requires specified number of numbers
+   * @param {number} [count=1] - Minimum number of numbers required
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasNumber(
     count = 1,
     message = `At least ${count} number${count > 1 ? "s" : ""}`
@@ -142,6 +181,12 @@ class RegexCraft {
     this.addPattern(`(?=(?:.*\\d)${count})`, message);
     return this;
   }
+  /**
+   * Requires specified number of special characters
+   * @param {number} [count=1] - Minimum number of special characters required
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   hasSpecialCharacter(
     count = 1,
     message = `At least ${count} special character${count > 1 ? "s" : ""}`
@@ -152,6 +197,11 @@ class RegexCraft {
   /**
    * Common format validators
    */
+  /**
+   * Validates email format
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   isEmail(message = "Must be a valid email address") {
     this.addPattern(
       "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -159,6 +209,13 @@ class RegexCraft {
     );
     return this;
   }
+  /**
+   * Validates URL format
+   * @param {Object} [options] - URL validation options
+   * @param {boolean} [options.protocol=true] - Whether to require protocol (http/https)
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   isURL(options = { protocol: true }, message = "Valid URL") {
     const protocol = options.protocol ? "https?:\\/\\/" : "";
     this.addPattern(
@@ -168,6 +225,11 @@ class RegexCraft {
     return this;
   }
 
+  /**
+   * Validates IPv4 address format
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   isIPv4(message = "Valid IPv4 address") {
     this.addPattern(
       "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
@@ -176,6 +238,12 @@ class RegexCraft {
     return this;
   }
 
+  /**
+   * Validates date format
+   * @param {string} [format="YYYY-MM-DD"] - Date format to validate against
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   isDate(format = "YYYY-MM-DD", message = `Valid date in ${format} format`) {
     const formats = {
       "YYYY-MM-DD": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$",
@@ -191,6 +259,12 @@ class RegexCraft {
    * Phone number validators
    */
 
+  /**
+   * Validates phone number format for different countries
+   * @param {string} [country="international"] - Country code for phone format
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   isPhone(country = "international", message) {
     const phonePatterns = {
       RW: "^(?:\\+?250|0)?7[2-9]\\d{7}$",
@@ -213,6 +287,12 @@ class RegexCraft {
    * Form field validators
    */
 
+  /**
+   * Applies validation rules to a form field
+   * @param {string} name - Field name
+   * @param {string} rules - Pipe-separated list of validation rules
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   field(name, rules) {
     const ruleList = rules.split("|");
     ruleList.forEach((rule) => {
@@ -240,6 +320,13 @@ class RegexCraft {
    * -------------------- Presets
    */
 
+  /**
+   * Applies a preset validation pattern
+   * @param {string} type - Preset type (e.g., 'password', 'username')
+   * @param {string} [level="medium"] - Validation strictness level
+   * @returns {RegexCraft} Returns this for method chaining
+   * @throws {Error} If preset type or level is not found
+   */
   usePreset(type, level = "medium") {
     const preset = this.presets[type]?.[level];
     if (!preset) {
@@ -257,6 +344,11 @@ class RegexCraft {
    *  Visualisation and testing
    */
 
+  /**
+   * Tests examples against the built regex pattern
+   * @param {string[]} examples - Array of strings to test
+   * @returns {Array<{value: string, isValid: boolean, failedRequirements: string[]}>} Test results
+   */
   test(examples) {
     const regex = this.build();
     return examples.map((example) => ({
@@ -266,6 +358,10 @@ class RegexCraft {
     }));
   }
 
+  /**
+   * Returns the current regex pattern and requirements
+   * @returns {{pattern: string, requirements: string[]}} Visualization object
+   */
   visualize() {
     return {
       pattern: this.build().toString(),
@@ -278,11 +374,24 @@ class RegexCraft {
    */
 
   // utility methods
+  /**
+   * Adds a pattern and its description to the RegexCraft instance
+   * @private
+   * @param {string} pattern - Regex pattern to add
+   * @param {string} message - Description of the pattern
+   * @returns {RegexCraft} Returns this for method chaining
+   */
   addPattern(pattern, message) {
     this.patterns.push(pattern);
     this.description.push(message);
     return this;
   }
+  /**
+   * Gets list of failed requirements for a value
+   * @private
+   * @param {string} value - Value to test
+   * @returns {string[]} Array of failed requirement messages
+   */
   getFailedRequirements(value) {
     return this.patterns
       .map((pattern, index) => ({
@@ -293,6 +402,10 @@ class RegexCraft {
       .map((result) => result.requirement);
   }
 
+  /**
+   * Builds the final regex pattern
+   * @returns {RegExp} Combined regular expression
+   */
   build() {
     if (this.patterns.length === 0) return new RegExp(".*", this.flags);
 
