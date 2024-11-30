@@ -176,7 +176,7 @@ class RegexCraft {
       value: example,
       isValid: regex.test(example),
       failedRequirements: this.getFailedRequirements(example),
-    }))[0];
+    }));
   }
 
   visualize() {
