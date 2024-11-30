@@ -123,6 +123,19 @@ class RegexCraft {
     return this;
   }
   /**
+   * Requires specified number of uppercase letters
+   * @param {number} count - Minimum number of uppercase letters required
+   * @param {string} message - Custom error message
+   * @returns {RegexCraft} - Returns this for method chaining
+   */
+  hasUpperCase(
+    count = 1,
+    message = `At least ${count} uppercase letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*[A-Z]){${count}})`, message);
+    return this;
+  }
+  /**
    * -------------------- Presets
    */
 
