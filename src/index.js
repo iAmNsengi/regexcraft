@@ -271,6 +271,12 @@ class RegexCraft {
       DRC: "^(?:\\+?243|0)?8[1-9]\\d{7}$",
       US: "^\\+?1?[-.]?\\(?[0-9]{3}\\)?[-.]?[0-9]{3}[-.]?[0-9]{4}$",
       UK: "^\\+?44\\s?\\d{10}$",
+      KE: "^(?:\\+?254|0)?[71]\\d{8}$",
+      UG: "^(?:\\+?256|0)?[7]\\d{8}$",
+      TZ: "^(?:\\+?255|0)?[67]\\d{8}$",
+      NG: "^(?:\\+?234|0)?[789]\\d{9}$",
+      ZA: "^(?:\\+?27|0)?[6-8]\\d{8}$",
+      GH: "^(?:\\+?233|0)?[235]\\d{8}$",
       international:
         "\\+?\\d{1,4}?[-.]?\\(?\\d{1,3}?\\)?[-.]?\\d{1,4}[-.]?\\d{1,4}[-.]?\\d{1,9}",
       E164: "^\\+[1-9]\\d{1,14}$",
@@ -314,13 +320,22 @@ class RegexCraft {
           this.usePreset("username", params || "standard");
           break;
         case "min":
-          this.hasMinLength(parseInt(params), `${name} must be at least ${params} characters`);
+          this.hasMinLength(
+            parseInt(params),
+            `${name} must be at least ${params} characters`
+          );
           break;
         case "max":
-          this.hasMaxLength(parseInt(params), `${name} must be at most ${params} characters`);
+          this.hasMaxLength(
+            parseInt(params),
+            `${name} must be at most ${params} characters`
+          );
           break;
         case "exact":
-          this.hasExactLength(parseInt(params), `${name} must be exactly ${params} characters`);
+          this.hasExactLength(
+            parseInt(params),
+            `${name} must be exactly ${params} characters`
+          );
           break;
         case "url":
           this.isURL({}, `${name} must be a valid URL`);
@@ -363,17 +378,26 @@ class RegexCraft {
    */
 
   /**
+   * Tests a single example against the built regex pattern
+   * @param {string} example - String to test
+   * @returns {{value: string, isValid: boolean, failedRequirements: string[]}} Test result
+   */
+  testOne(example) {
+    const regex = this.build();
+    return {
+      value: example,
+      isValid: regex.test(example),
+      failedRequirements: this.getFailedRequirements(example),
+    };
+  }
+
+  /**
    * Tests examples against the built regex pattern
    * @param {string[]} examples - Array of strings to test
    * @returns {Array<{value: string, isValid: boolean, failedRequirements: string[]}>} Test results
    */
   test(examples) {
-    const regex = this.build();
-    return examples.map((example) => ({
-      value: example,
-      isValid: regex.test(example),
-      failedRequirements: this.getFailedRequirements(example),
-    }));
+    return examples.map((example) => this.testOne(example));
   }
 
   /**
