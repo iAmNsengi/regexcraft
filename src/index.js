@@ -312,6 +312,24 @@ class RegexCraft {
           break;
         case "username":
           this.usePreset("username", params || "standard");
+          break;
+        case "min":
+          this.hasMinLength(parseInt(params), `${name} must be at least ${params} characters`);
+          break;
+        case "max":
+          this.hasMaxLength(parseInt(params), `${name} must be at most ${params} characters`);
+          break;
+        case "exact":
+          this.hasExactLength(parseInt(params), `${name} must be exactly ${params} characters`);
+          break;
+        case "url":
+          this.isURL({}, `${name} must be a valid URL`);
+          break;
+        case "date":
+          this.isDate(params, `${name} must be a valid date`);
+          break;
+        default:
+          throw new Error(`Unknown validation rule: ${ruleName}`);
       }
     });
     return this;
