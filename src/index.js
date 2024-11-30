@@ -99,7 +99,7 @@ class RegexCraft {
     length,
     message = `Length should be exactly ${length} characters`
   ) {
-    this.addPattern(`(^?={.${length}}$)`, message);
+    this.addPattern(`(?=^.{${length}}$)`, message);
     return this;
   }
 
