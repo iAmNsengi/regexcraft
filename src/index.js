@@ -152,7 +152,7 @@ class RegexCraft {
   /**
    * Common format validators
    */
-  isEmail(message = "Valid email address") {
+  isEmail(message = "Must be a valid email address") {
     this.addPattern(
       "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
       message
@@ -187,6 +187,55 @@ class RegexCraft {
     return this;
   }
 
+  /**
+   * Phone number validators
+   */
+
+  isPhone(country = "international", message) {
+    const phonePatterns = {
+      RW: "^(?:\\+?250|0)?7[2-9]\\d{7}$",
+      DRC: "^(?:\\+?243|0)?8[1-9]\\d{7}$",
+      US: "^\\+?1?[-.]?\\(?[0-9]{3}\\)?[-.]?[0-9]{3}[-.]?[0-9]{4}$",
+      UK: "^\\+?44\\s?\\d{10}$",
+      international:
+        "\\+?\\d{1,4}?[-.]?\\(?\\d{1,3}?\\)?[-.]?\\d{1,4}[-.]?\\d{1,4}[-.]?\\d{1,9}",
+      E164: "^\\+[1-9]\\d{1,14}$",
+    };
+
+    this.addPattern(
+      phonePatterns[country] || phonePatterns["international"],
+      message || `Valid ${country} phone number`
+    );
+    return this;
+  }
+
+  /**
+   * Form field validators
+   */
+
+  field(name, rules) {
+    const ruleList = rules.split("|");
+    ruleList.forEach((rule) => {
+      const [ruleName, params] = rule.split(":");
+      switch (ruleName) {
+        case "required":
+          this.addPattern(".+", `${name} is required`);
+          break;
+        case "email":
+          this.isEmail(`${name} must be a valid email`);
+          break;
+        case "phone":
+          this.isPhone(params, `${name} must be a valid phone number`);
+          break;
+        case "password":
+          this.usePreset("password", params || "medium");
+          break;
+        case "username":
+          this.usePreset("username", params || "standard");
+      }
+    });
+    return this;
+  }
   /**
    * -------------------- Presets
    */
