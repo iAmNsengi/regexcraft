@@ -21,7 +21,7 @@ RegexCraft is a powerful utility class for building and managing regular express
 - 🔗 Chainable API for building complex patterns
 - 📝 Built-in validation presets for common use cases
 - 🎯 Custom error messages for each validation rule
-- 📱 Phone number validation for multiple countries
+- 📱 Phone number validation for multiple countries (RW, DRC, US, UK, KE, UG, TZ, NG, ZA, GH)
 - 🔒 Password strength validation
 - 👤 Username format validation
 - 📧 Email validation
@@ -45,18 +45,24 @@ yarn add regexcraft
 
 ```javascript
 import RegexCraft from "regexcraft";
+
 // Create a new instance
 const regex = new RegexCraft();
-// Build a password validation pattern
-regex
+
+// Test a single value
+const result = regex
   .hasMinLength(8)
   .hasUpperCase(1)
   .hasLowerCase(1)
   .hasNumber(1)
-  .hasSpecialCharacter(1);
-// Test a value
-const result = regex.test(["MyPassword123!"]);
+  .hasSpecialCharacter(1)
+  .testOne("MyPassword123!");
+
 console.log(result);
+// { value: "MyPassword123!", isValid: true, failedRequirements: [] }
+
+// Test multiple values (still supported)
+const results = regex.test(["MyPassword123!", "weak"]);
 ```
 
 ## Usage Examples 💡
@@ -65,7 +71,7 @@ console.log(result);
 
 ```javascript
 const passwordValidator = new RegexCraft()
-  .usePreset("password", "medium") // Use built-in preset
+  .usePreset("password", "medium") // Use built-in presets
   .build();
 
 // Or create custom rules
@@ -95,8 +101,14 @@ const emailValidator = new RegexCraft().isEmail().build();
 
 ```javascript
 const phoneValidator = new RegexCraft()
-  .isPhone("US") // Supports multiple country formats
+  .isPhone("US")    // Supports: US, UK, RW, DRC, KE, UG, TZ, NG, ZA, GH
   .build();
+
+// Test a single phone number
+const result = phoneValidator.testOne("+1234567890");
+
+// Test multiple numbers
+const results = phoneValidator.test(["+1234567890", "+254712345678"]);
 ```
 
 ### Form Field Validation
