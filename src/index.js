@@ -188,6 +188,27 @@ class RegexCraft {
   }
 
   /**
+   * Phone number validators
+   */
+
+  isPhone(country = "international", message) {
+    const phonePatterns = {
+      RW: "^(?:\\+?250|0)?7[2-9]\\d{7}$",
+      DRC: "^(?:\\+?243|0)?8[1-9]\\d{7}$",
+      US: "^\\+?1?[-.]?\\(?[0-9]{3}\\)?[-.]?[0-9]{3}[-.]?[0-9]{4}$",
+      UK: "^\\+?44\\s?\\d{10}$",
+      international:
+        "\\+?\\d{1,4}?[-.]?\\(?\\d{1,3}?\\)?[-.]?\\d{1,4}[-.]?\\d{1,4}[-.]?\\d{1,9}",
+      E164: "^\\+[1-9]\\d{1,14}$",
+    };
+
+    this.addPattern(
+      phonePatterns[country] || phonePatterns["international"],
+      message || `Valid ${country} phone number`
+    );
+    return this;
+  }
+  /**
    * -------------------- Presets
    */
 
