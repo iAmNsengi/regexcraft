@@ -135,6 +135,58 @@ class RegexCraft {
     this.addPattern(`(?=(?:.*[A-Z]){${count}})`, message);
     return this;
   }
+  hasNumber(
+    count = 1,
+    message = `At least ${count} number${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*\\d)${count})`, message);
+    return this;
+  }
+  hasSpecialCharacter(
+    count = 1,
+    message = `At least ${count} special character${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?=.*[!@#$%^&-?~*]){${count}})`, message);
+    return this;
+  }
+  /**
+   * Common format validators
+   */
+  isEmail(message = "Valid email address") {
+    this.addPattern(
+      "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      message
+    );
+    return this;
+  }
+  isURL(options = { protocol: true }, message = "Valid URL") {
+    const protocol = options.protocol ? "https?:\\/\\/" : "";
+    this.addPattern(
+      `^${protocol}([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&=]*)?$`,
+      message
+    );
+    return this;
+  }
+
+  isIPv4(message = "Valid IPv4 address") {
+    this.addPattern(
+      "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+      message
+    );
+    return this;
+  }
+
+  isDate(format = "YYYY-MM-DD", message = `Valid date in ${format} format`) {
+    const formats = {
+      "YYYY-MM-DD": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$",
+      "MM/DD/YYYY": "^(?:0[1-9]|1[0-2])/(?:0[1-9]|[12]\\d|3[01])/\\d{4}$",
+      "DD/MM/YYYY": "^(?:0[1-9]|[12]\\d|3[01])/(?:0[1-9]|1[0-2])/\\d{4}$",
+      ISO: "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$",
+    };
+    this.addPattern(formats[format] || formats["YYYY-MM-DD"], message);
+    return this;
+  }
+
   /**
    * -------------------- Presets
    */
