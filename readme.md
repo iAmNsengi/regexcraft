@@ -1,6 +1,20 @@
 # RegexCraft 🛠️
 
+[![npm version](https://badge.fury.io/js/regexcraft.svg)](https://badge.fury.io/js/regexcraft)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 RegexCraft is a powerful utility class for building and managing regular expressions with a fluent, chainable API. It simplifies the process of creating complex regex patterns while providing clear validation messages.
+
+## Table of Contents
+- [Features](#features-)
+- [Installation](#installation-)
+- [Quick Start](#quick-start-)
+- [Usage Examples](#usage-examples-)
+- [API Reference](#api-reference-)
+- [Contributing](#contributing-)
+- [License](#license-)
+- [Support](#support-)
+- [Author](#author-)
 
 ## Features ✨
 
@@ -16,6 +30,10 @@ RegexCraft is a powerful utility class for building and managing regular express
 - 🔍 Pattern testing and visualization
 
 ## Installation 📦
+
+### Requirements
+- Node.js 12.x or higher
+- npm 6.x or higher
 
 ```bash
 npm install regexcraft
@@ -89,6 +107,77 @@ const formValidator = new RegexCraft()
   .field("password", "password:high")
   .field("username", "username:strict")
   .build();
+```
+
+### React Example
+
+```jsx
+import RegexCraft from 'regexcraft';
+import { useState } from 'react';
+
+function SignupForm() {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    email: ''
+  });
+  const [errors, setErrors] = useState({});
+
+  const validate = (field, value) => {
+    const validator = new RegexCraft()
+      .usePreset(field, "high")
+      .build();
+    const result = validator.test([value]);
+    if (!result) {
+      setErrors(prevErrors => ({ ...prevErrors, [field]: validator.getErrorMessage() }));
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+    validate(name, value);
+  };
+
+  return (
+    <form>
+      <input type="text" name="username" value={formData.username} onChange={handleChange} />
+      <input type="password" name="password" value={formData.password} onChange={handleChange} />
+      <input type="email" name="email" value={formData.email} onChange={handleChange} />
+      {errors.username && <p>{errors.username}</p>}
+      {errors.password && <p>{errors.password}</p>}
+      {errors.email && <p>{errors.email}</p>}
+    </form>
+  );
+}
+
+export default SignupForm;
+```
+
+### Vanilla JavaScript Example
+
+```javascript
+const form = document.querySelector('#signupForm');
+const emailInput = form.querySelector('input[name="email"]');
+const errorContainer = form.querySelector('.error-messages');
+
+const validator = new RegexCraft();
+
+emailInput.addEventListener('input', (e) => {
+  const email = e.target.value;
+  validator.field('Email', 'required|email');
+  
+  const result = validator.test([email])[0];
+  errorContainer.innerHTML = '';
+  
+  if (!result.isValid) {
+    result.failedRequirements.forEach(error => {
+      const errorElement = document.createElement('p');
+      errorElement.textContent = error;
+      errorContainer.appendChild(errorElement);
+    });
+  }
+});
 ```
 
 ## API Reference 📚
