@@ -135,6 +135,20 @@ class RegexCraft {
     this.addPattern(`(?=(?:.*[A-Z]){${count}})`, message);
     return this;
   }
+  hasNumber(
+    count = 1,
+    message = `At least ${count} number${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*\\d)${count})`, message);
+    return this;
+  }
+  hasSpecialCharacter(
+    count = 1,
+    message = `At least ${count} special character${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?=.*[!@#$%^&-?~*]){${count}})`, message);
+    return this;
+  }
   /**
    * -------------------- Presets
    */
