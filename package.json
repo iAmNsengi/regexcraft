@@ -1,23 +1,35 @@
 {
-  "name": "regex-craft",
+  "name": "regexcraft",
   "version": "1.0.0",
-  "type": "module",
+  "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "npm run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iAmNsengi/regexit.git"
+    "test": "jest",
+    "build": "babel src -d dist",
+    "prepare": "npm run build"
   },
   "keywords": [
-    "regex"
+    "regex",
+    "regular-expressions",
+    "validation",
+    "pattern-matching",
+    "form-validation"
   ],
   "author": "Eliezer Nsengi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iAmNsengi/regexit/issues"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iAmNsengi/regexcraft.git"
   },
-  "homepage": "https://github.com/iAmNsengi/regexit#readme",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/iAmNsengi/regexcraft/issues"
+  },
+  "homepage": "https://github.com/iAmNsengi/regexcraft#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "jest": "^29.7.0"
+  }
 }
