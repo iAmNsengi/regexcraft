@@ -152,7 +152,7 @@ class RegexCraft {
   /**
    * Common format validators
    */
-  isEmail(message = "Valid email address") {
+  isEmail(message = "Must be a valid email address") {
     this.addPattern(
       "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
       message
@@ -206,6 +206,34 @@ class RegexCraft {
       phonePatterns[country] || phonePatterns["international"],
       message || `Valid ${country} phone number`
     );
+    return this;
+  }
+
+  /**
+   * Form field validators
+   */
+
+  field(name, rules) {
+    const ruleList = rules.split("|");
+    ruleList.forEach((rule) => {
+      const [ruleName, params] = rule.split(":");
+      switch (ruleName) {
+        case "required":
+          this.addPattern(".+", `${name} is required`);
+          break;
+        case "email":
+          this.isEmail(`${name} must be a valid email`);
+          break;
+        case "phone":
+          this.isPhone(params, `${name} must be a valid phone number`);
+          break;
+        case "password":
+          this.usePreset("password", params || "medium");
+          break;
+        case "username":
+          this.usePreset("username", params || "standard");
+      }
+    });
     return this;
   }
   /**
