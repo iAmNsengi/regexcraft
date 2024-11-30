@@ -73,7 +73,9 @@ class RegexCraft {
     };
   }
 
-  // Length validators
+  /**
+   * ---------------------------------Length validators ----------------------------------------
+   */
 
   hasMinLength(length, message = `Minimum length of ${length} characters`) {
     this.addPattern(`^.{${length},}$`, message);
@@ -93,8 +95,50 @@ class RegexCraft {
     this.addPattern(`^.{${min},${max}}$`, message);
     return this;
   }
+  hasExactLength(
+    length,
+    message = `Length should be exactly ${length} characters`
+  ) {
+    this.addPattern(`(?=^.{${length}}$)`, message);
+    return this;
+  }
 
-  // presets
+  /**
+   * Character validations
+   */
+
+  hasLetter(
+    count = 1,
+    message = `At least ${count} letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?=.*[a-zA-Z]){${count}})`, message);
+    return this;
+  }
+
+  hasLowerCase(
+    count = 1,
+    message = `At least ${count} lowercase letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*[a-z]){${count}})`, message);
+    return this;
+  }
+  /**
+   * Requires specified number of uppercase letters
+   * @param {number} count - Minimum number of uppercase letters required
+   * @param {string} message - Custom error message
+   * @returns {RegexCraft} - Returns this for method chaining
+   */
+  hasUpperCase(
+    count = 1,
+    message = `At least ${count} uppercase letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*[A-Z]){${count}})`, message);
+    return this;
+  }
+  /**
+   * -------------------- Presets
+   */
+
   usePreset(type, level = "medium") {
     const preset = this.presets[type]?.[level];
     if (!preset) {
@@ -109,7 +153,7 @@ class RegexCraft {
   }
 
   /**
-   *  Visualisation and testing ------------------------------
+   *  Visualisation and testing
    */
 
   test(examples) {
@@ -118,7 +162,7 @@ class RegexCraft {
       value: example,
       isValid: regex.test(example),
       failedRequirements: this.getFailedRequirements(example),
-    }))[0];
+    }));
   }
 
   visualize() {
