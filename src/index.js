@@ -103,7 +103,29 @@ class RegexCraft {
     return this;
   }
 
-  // presets
+  /**
+   * Character validations
+   */
+
+  hasLetter(
+    count = 1,
+    message = `At least ${count} letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?=.*[a-zA-Z]){${count}})`, message);
+    return this;
+  }
+
+  hasLowerCase(
+    count = 1,
+    message = `At least ${count} lowercase letter${count > 1 ? "s" : ""}`
+  ) {
+    this.addPattern(`(?=(?:.*[a-z]){${count}})`, message);
+    return this;
+  }
+  /**
+   * -------------------- Presets
+   */
+
   usePreset(type, level = "medium") {
     const preset = this.presets[type]?.[level];
     if (!preset) {
@@ -118,7 +140,7 @@ class RegexCraft {
   }
 
   /**
-   *  Visualisation and testing ------------------------------
+   *  Visualisation and testing
    */
 
   test(examples) {
