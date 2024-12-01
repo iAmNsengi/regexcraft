@@ -11,12 +11,13 @@ declare module "regexcraft" {
       high: PresetPattern[];
     };
     username: {
-      standard: PresetPattern[];
-      strict: PresetPattern[];
+      low: PresetPattern[];
+      medium: PresetPattern[];
+      high: PresetPattern[];
     };
   }
 
-  type 
+  type;
 
   interface URLOptions {
     protocol?: boolean;
@@ -56,7 +57,7 @@ declare module "regexcraft" {
     field(name: string, rules: string): RegexCraft;
     usePreset(
       type: "password" | "username",
-      level?: "low" | "medium" | "high" | "standard" | "strict"
+      level?: "low" | "medium" | "high"
     ): RegexCraft;
 
     testOne(example: string): TestResult;

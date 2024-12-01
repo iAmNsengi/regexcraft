@@ -60,17 +60,22 @@ class RegexCraft {
         ],
       },
       username: {
-        standard: [
+        low: [
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9_]{2,29}",
-            message:
-              "Letters, numbers and underscore only, at least 2 characters",
+            message: "Letters, numbers and underscore only, at least 2 characters",
           },
         ],
-        strict: [
+        medium: [
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9]{5,29}",
             message: "Letters and numbers only, at least 5 characters",
+          },
+        ],
+        high: [
+          {
+            pattern: "^[a-zA-Z][a-zA-Z0-9]{8,29}",
+            message: "Letters and numbers only, at least 8 characters",
           },
         ],
       },
@@ -317,7 +322,7 @@ class RegexCraft {
           this.usePreset("password", params || "medium");
           break;
         case "username":
-          this.usePreset("username", params || "standard");
+          this.usePreset("username", params || "medium");
           break;
         case "min":
           this.hasMinLength(
