@@ -1,6 +1,6 @@
 {
   "name": "regexcraft",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.js",
   "type": "module",
