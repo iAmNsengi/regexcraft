@@ -1,6 +1,6 @@
 {
   "name": "regexcraft",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.js",
   "type": "module",
@@ -34,6 +34,10 @@
   },
   "types": "src/types/regexcraft.d.ts",
   "typesVersions": {
-    ">=3.1": { "*": ["src/@types/*"] }
+    ">=3.1": {
+      "*": [
+        "src/@types/*"
+      ]
+    }
   }
 }
