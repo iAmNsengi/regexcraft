@@ -1,6 +1,6 @@
 {
   "name": "regexcraft",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.js",
   "type": "module",
@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/iAmNsengi/regexcraft/issues"
   },
-  "homepage": "https://github.com/iAmNsengi/regexcraft#readme",
+  "homepage": "https://regexcraft.onrender.com/",
   "devDependencies": {
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.23.9",
