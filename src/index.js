@@ -40,10 +40,10 @@ class RegexCraft {
           },
         ],
         high: [
-          { pattern: "(?=.{10,})", message: "At least 8 characters" },
+          { pattern: "(?=.{10,})", message: "At least 10 characters" },
           {
-            pattern: "(?=.*\\d{2,0})",
-            message: "At least two number",
+            pattern: "(?=(?:.*\\d){2})",
+            message: "At least two numbers",
           },
           {
             pattern: "(?=.*[a-z])",
@@ -191,7 +191,7 @@ class RegexCraft {
     count = 1,
     message = `At least ${count} special character${count > 1 ? "s" : ""}`
   ) {
-    this.addPattern(`(?=(?=.*[!@#$%^&-?~*]){${count}})`, message);
+    this.addPattern(`(?=(?=.*[!@#$%^&*?~]){${count}})`, message);
     return this;
   }
   /**
