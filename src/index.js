@@ -42,7 +42,7 @@ class RegexCraft {
         high: [
           { pattern: "(?=.{10,})", message: "At least 10 characters" },
           {
-            pattern: "(?=(?:.*\\d){2})",
+            pattern: "(?=(?=.*\\d{2,}))",
             message: "At least two numbers",
           },
           {
@@ -183,7 +183,7 @@ class RegexCraft {
     count = 1,
     message = `At least ${count} number${count > 1 ? "s" : ""}`
   ) {
-    this.addPattern(`(?=(?:.*\\d)${count})`, message);
+    this.addPattern(`(?=(?:.*\\d){${count}})`, message);
     return this;
   }
   /**
