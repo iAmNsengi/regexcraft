@@ -42,7 +42,7 @@ class RegexCraft {
         high: [
           { pattern: "(?=.{10,})", message: "At least 10 characters" },
           {
-            pattern: "(?=(.*d){2,})",
+            pattern: "(?=(.*\\d){2,})",
             message: "At least two numbers",
           },
           {
