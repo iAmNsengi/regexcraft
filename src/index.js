@@ -42,7 +42,7 @@ class RegexCraft {
         high: [
           { pattern: "(?=.{10,})", message: "At least 10 characters" },
           {
-            pattern: "(?=(?=.*\\d{2,}))",
+            pattern: "(?=.*\\d)(?=.*\\d)",
             message: "At least two numbers",
           },
           {
@@ -63,7 +63,8 @@ class RegexCraft {
         low: [
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9_]{2,29}",
-            message: "Letters, numbers and underscore only, at least 2 characters",
+            message:
+              "Letters, numbers and underscore only, at least 2 characters",
           },
         ],
         medium: [
