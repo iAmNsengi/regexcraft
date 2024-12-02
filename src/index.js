@@ -64,19 +64,21 @@ class RegexCraft {
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9_]{2,29}",
             message:
-              "Letters, numbers and underscore only, at least 2 characters",
+              "Letters, numbers and underscore only, at least 2 characters and max 29 characters.",
           },
         ],
         medium: [
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9]{5,29}",
-            message: "Letters and numbers only, at least 5 characters",
+            message:
+              "Letters and numbers only, at least 5 characters and max 29 characters.",
           },
         ],
         high: [
           {
             pattern: "^[a-zA-Z][a-zA-Z0-9]{8,29}",
-            message: "Letters and numbers only, at least 8 characters",
+            message:
+              "Letters and numbers only, at least 8 characters and max 29 characters.",
           },
         ],
       },
@@ -222,7 +224,7 @@ class RegexCraft {
    * @param {string} [message] - Custom error message
    * @returns {RegexCraft} Returns this for method chaining
    */
-  isURL(options = { protocol: true }, message = "Valid URL") {
+  isURL(options = { protocol: true }, message = "Must be a valid URL") {
     const protocol = options.protocol ? "https?:\\/\\/" : "";
     this.addPattern(
       `^${protocol}([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&=]*)?$`,
@@ -236,7 +238,7 @@ class RegexCraft {
    * @param {string} [message] - Custom error message
    * @returns {RegexCraft} Returns this for method chaining
    */
-  isIPv4(message = "Valid IPv4 address") {
+  isIPv4(message = "Must be a valid IPv4 address") {
     this.addPattern(
       "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
       message
