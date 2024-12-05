@@ -1,3 +1,3 @@
-const RegexCraft = require("./index");
+const RegexCraft = require("./index.js");
 
 module.exports = RegexCraft;

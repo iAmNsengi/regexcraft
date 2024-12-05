@@ -4,6 +4,7 @@
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.cjs.js",
   "module": "src/index.mjs",
+  "types": "src/@types/regexcraft.d.ts",
   "scripts": {
     "test": "jest",
     "build": "babel src -d dist",
@@ -32,9 +33,14 @@
     "@babel/preset-env": "^7.23.9",
     "jest": "^29.7.0"
   },
-  "types": "src/@types/regexcraft.d.ts",
   "exports": {
-    "import": "./src/index.mjs",
-    "require": "./src/index.cjs.js"
+    "import": {
+      "default": "./src/index.mjs",
+      "types": "./src/@types/regexcraft.d.ts"
+    },
+    "require": {
+      "default": "./src/index.cjs.js",
+      "types": "./src/@types/regexcraft.d.ts"
+    }
   }
 }
