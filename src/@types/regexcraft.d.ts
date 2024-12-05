@@ -17,7 +17,7 @@ declare module "regexcraft" {
     };
   }
 
-  type;
+  // type;
 
   interface URLOptions {
     protocol?: boolean;

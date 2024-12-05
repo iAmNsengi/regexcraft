@@ -454,7 +454,7 @@ class RegexCraft {
 
   /**
    * Builds the final regex pattern
-   * @returns {RegExp} Combined regular expression
+   * @returns {RegExp} Combine regular expression in one
    */
   build() {
     if (this.patterns.length === 0) return new RegExp(".*", this.flags);
