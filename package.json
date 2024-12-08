@@ -1,6 +1,6 @@
 {
   "name": "regexcraft",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.cjs.js",
   "module": "src/index.mjs",
@@ -30,7 +30,9 @@
   "devDependencies": {
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.23.9",
-    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0"
   },
   "exports": {

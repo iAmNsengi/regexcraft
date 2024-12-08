@@ -10,7 +10,7 @@ class RegexCraft {
    */
   constructor() {
     this.patterns = [];
-    this.flags = "";
+    this.flags = "";  
     this.description = [];
     this.errorMessages = new Map();
 
