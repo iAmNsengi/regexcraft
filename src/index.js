@@ -10,7 +10,7 @@ class RegexCraft {
    */
   constructor() {
     this.patterns = [];
-    this.flags = "";  
+    this.flags = "";
     this.description = [];
     this.errorMessages = new Map();
 
@@ -146,7 +146,7 @@ class RegexCraft {
     count = 1,
     message = `At least ${count} letter${count > 1 ? "s" : ""}`
   ) {
-    this.addPattern(`(?=(?=.*[a-zA-Z]){${count}})`, message);
+    this.addPattern(`(?=(?:.*[a-zA-Z]){${count}})`, message);
     return this;
   }
 
