@@ -1,6 +1,6 @@
 {
   "name": "regexcraft",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "A powerful utility class for building and managing regular expressions with a fluent, chainable API",
   "main": "src/index.cjs.js",
   "module": "src/index.mjs",
