@@ -202,6 +202,17 @@ class RegexCraft {
     this.addPattern(`(?=(?=.*[!@#$%^&*?~]){${count}})`, message);
     return this;
   }
+
+  /**
+   * Requires that input contains no numbers
+   * @param {string} [message] - Custom error message
+   * @returns {RegexCraft} Returns this for method chaining
+   */
+  hasNoNumber(message = "Must not contain any numbers") {
+    this.addPattern("^[^0-9]*$", message);
+    return this;
+  }
+  
   /**
    * Common format validators
    */
